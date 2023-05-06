@@ -1,3 +1,11 @@
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-image: url('https://img.js.design/assets/img/644642fe23bdc22c173a2eed.png#5b4f62eb6b27b822a7db1318ce60f02a');
+  background-size: cover;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
