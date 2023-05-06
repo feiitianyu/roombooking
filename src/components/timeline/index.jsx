@@ -11,10 +11,9 @@ import './index.css'
 //   '17:00', '17:30', '18:00'
 // ]
 
-
-
 const TimeLine = () => {
   const timelineRef = useRef()
+  const timeAxisRef  = useRef()
   const [expand, setExpand] = useState(true)
   const [showTimeAxis, setShowTimeAxis] = useState(isBetween8and18)
   const [minutes, setMinutes] = useState(getMinutesFrom8ToNow)
@@ -34,10 +33,10 @@ const TimeLine = () => {
 
   const getMinutes = () => {
     const timer = setInterval(() => {
-      // console.log(dayjs().unix())
       if (isBetween8and18()) {
         const current = dayjs().unix()
         if (current % 60 === 0) {
+          timeAxisRef.current?.scrollIntoView()
           setMinutes(getMinutesFrom8ToNow())
         }
       } else {
@@ -49,12 +48,14 @@ const TimeLine = () => {
   }
 
   useEffect(() => {
+    timeAxisRef.current?.scrollIntoView()
     let timer = getMinutes()
 
     const onVisibilitychange = () => {
       if (document.hidden) {
         clearInterval(timer)
       } else {
+        timeAxisRef.current?.scrollIntoView()
         setMinutes(getMinutesFrom8ToNow())
         timer = getMinutes()
       }
@@ -82,7 +83,7 @@ const TimeLine = () => {
         }
       </div>
       <div className='timeline-item-container'>
-        <div className='time-axis' style={{ top: `calc(24px + 100px / 30 * ${minutes})`, display: showTimeAxis ? 'flex' : 'none' }}>
+        <div className='time-axis' style={{ top: `calc(24px + 100px / 30 * ${minutes})`, display: showTimeAxis ? 'flex' : 'none' }} ref={timeAxisRef} >
           <div className='time-axis-dot'></div>
           <div className='time-axis-line'></div>
         </div>
